@@ -66,10 +66,10 @@ jobs:
         version: latest
 
     - name: Install dependencies
-      run: uv sync
+      run: uv sync --extra dev
 
     - name: Run linting
-      run: uv run ruff check .
+      run: uv run ruff check . --fix
 
     - name: Run type checking
       run: uv run mypy .
@@ -123,6 +123,8 @@ jobs:
   # Security Scanning
   security:
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write
 
     steps:
     - name: Checkout code
@@ -135,6 +137,7 @@ jobs:
         scan-ref: '.'
         format: 'sarif'
         output: 'trivy-results.sarif'
+        severity: 'CRITICAL,HIGH'
 
     - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v3
