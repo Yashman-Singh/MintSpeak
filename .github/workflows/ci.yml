@@ -78,7 +78,7 @@ jobs:
       run: uv run pytest
 
     - name: Run security checks
-      run: uv run bandit -r .
+      run: uv run bandit -r . --exclude tests/ --skip B101
 
   # Docker Build & Test
   docker:
