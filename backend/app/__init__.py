@@ -1,0 +1,1 @@
+# MintSpeak Backend Application
